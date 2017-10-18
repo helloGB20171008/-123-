@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<mappers>
-		<!-- 通过package批量加载映射文件 -->
+		<!-- 通过package批量加载映射文件1111 -->
 		<package name="com.easy.mapper"/>
 	</mappers>
 </configuration>
