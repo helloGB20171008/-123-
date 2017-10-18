@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射接口  -->
+<mapper namespace="com.easy.mapper.UserMapper" >
+
+<select id="selectAll" resultType="com.easy.model.User">
+select user_Te userTe,user_name userName,user_Pw userPw,user_Type userType from users
+</select>
+
+
+<insert id="add"   parameterType="com.easy.model.User">
+
+insert into  users values(#{userTe},#{userName},#{userPw},#{userType})
+</insert> 
+
+
+<select id="selectById" parameterType="int" resultType="com.easy.model.User">
+select user_Te userTe,user_name userName,user_Pw userPw,user_Type userType from users
+where user_Te=#{userTe} 
+</select>
+
+</mapper>

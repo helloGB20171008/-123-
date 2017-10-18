@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easy.mapper.CarMapper" >
+<!-- 增加 -->
+<insert id="add"   parameterType="com.easy.model.Car">
+ <selectKey order="BEFORE"   resultType="int" keyProperty="carId">
+ select seq_carid.nextval from dual
+ </selectKey>
+insert into  Car values(#{carId},#{brandId},#{levelId},#{typeId},#{strId},#{outId},#{gearId},#{seat},#{original},#{discount},#{image})
+</insert>
+
+<!--删除  -->
+<delete id="delete" parameterType="int" >
+delete from Car where car_Id=#{carId}
+</delete>
+
+<update id="update"   parameterType="com.easy.model.Car">
+update Car set  brand_Id=#{brandId},levelId=#{levelId},type_Id=#{typeId},str_Id=#{strId},out_Id=#{outId},gear_Id=#{gearId},seat=#{seat},original=#{original},discount=#{discount},image=#{image}where car_id = #{carId}
+</update>
+<!-- 全查 -->
+<!-- 映射的定义，从数据库查出来的所有属性和Java的模型里的属性一列一列对应（要求数据库属性名和Java属性名一致，如果名字不一样就起别名，如下），然后映射成一个Java对象返回。-->
+<select id="selectAll"  resultType="com.easy.model.Car">
+select  car_Id carId,brand_Id brandId,levelId levelId,type_Id typeId,str_Id strId,out_Id outId,gear_Id gearId,seat,original,discount,image from Car
+
+</select>
+<!-- 按ID查 -->
+<select id="selectById" parameterType="int" resultType="com.easy.model.Car">
+select car_Id carId,brand_Id brandId,levelId levelId,type_Id typeId,str_Id strId,out_Id outId,gear_Id gearId,seat,original,discount,image from Car where car_id = #{carId}
+</select>
+
+
+
+
+<!-- sql片段 -->      <!-- where和where标签  -->    
+<!-- 在where将出现的and去掉 其他语句不满足时，去掉的是if判断语句里面的and -->
+<sql id="a">
+<where>
+<if test="brandId !=0 and brandId !='' ">brand_Id=#{brandId}</if>
+</where>
+</sql>
+
+<!--  复杂查询-->
+<!-- 返回多条数据（模糊，全查询）时用复杂查询，byid查询（一条数据）最好单独写一个-->
+<select id="selectFuza" parameterType="com.easy.model.Car" resultType="com.easy.model.Car">
+select car_Id carId,brand_Id brandId,levelId levelId,type_Id typeId,str_Id strId,out_Id outId,gear_Id gearId,seat,original,discount,image from Car 
+<include refid="a"></include>
+</select>
+</mapper>
